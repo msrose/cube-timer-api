@@ -6,18 +6,25 @@ let dynamodb = new AWS.DynamoDB.DocumentClient();
 
 const config = require('./config');
 
+exports.authorize = (req, res, next) => {
+  if(req.headers.authorization !== config.authenticationToken) {
+    return next({ status: 401, message: 'Must provide a valid authentication token' });
+  }
+  next();
+};
+
 exports.getSolves = (req, res, next) => {
   if(!req.params.puzzle) {
-    return next({ status: 400, message: 'No puzzle name given.' });
+    return next({ status: 400, message: 'No puzzle name given' });
   }
-  var params = {
+  let params = {
     TableName: config.dynamoTableName,
     KeyConditionExpression: 'puzzle = :puzzle',
     ExpressionAttributeValues: {
       ':puzzle': req.params.puzzle
     }
   }
-  dynamodb.query(params, function(err, data) {
+  dynamodb.query(params, (err, data) => {
     if(err) {
       return next(err);
     }
@@ -27,7 +34,7 @@ exports.getSolves = (req, res, next) => {
 
 exports.syncSolves = (req, res, next) => {
   if(!req.body.solves || !Array.isArray(req.body.solves) || req.body.solves.length === 0) {
-    return next({ status: 400, message: 'Must give an array of at least one solve.' });
+    return next({ status: 400, message: 'Must give an array of at least one solve' });
   }
   for(let i = 0; i < req.body.solves.length; i++) {
     let solve = req.body.solves[i];
@@ -54,7 +61,7 @@ exports.syncSolves = (req, res, next) => {
       [config.dynamoTableName]: req.body.solves
     }
   };
-  dynamodb.batchWrite(params, function(err, data) {
+  dynamodb.batchWrite(params, (err, data) => {
     if(err) {
       err.status = err.status || 400;
       return next(err);

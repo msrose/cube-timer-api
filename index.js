@@ -19,7 +19,7 @@ app.use(morgan(config.logFormat));
 app.use(bodyParser.json());
 
 app.get('/solves/:puzzle', handlers.getSolves);
-app.post('/solves', handlers.syncSolves);
+app.post('/solves', handlers.authorize, handlers.syncSolves);
 
 app.use((err, req, res, next) => {
   if(res.headersSent) {
