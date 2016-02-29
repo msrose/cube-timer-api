@@ -1,0 +1,35 @@
+{
+  "name": "y",
+  "version": "0.0.1",
+  "description": "Manage time data from cubing sessions",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msrose/cube-timer-api.git"
+  },
+  "keywords": [
+    "cubing",
+    "timer"
+  ],
+  "author": "Michael Rose",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/msrose/cube-timer-api/issues"
+  },
+  "homepage": "https://github.com/msrose/cube-timer-api#readme",
+  "dependencies": {
+    "aws-sdk": "^2.2.39",
+    "body-parser": "^1.15.0",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "helmet": "^1.1.0",
+    "method-override": "^2.3.5",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.1"
+  }
+}
