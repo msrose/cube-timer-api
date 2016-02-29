@@ -1,4 +1,4 @@
 node_modules/
 *.swp
 *.swo
-credentials.csv
+credentials.json
