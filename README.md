@@ -70,5 +70,5 @@ Example response:
 SSH into the instance and run:
 
 ```
-NODE_ENV=production PORT=80 sudo -E nohup node cube-timer-api/index.js & > cube-timer-api.log
+NODE_ENV=production PORT=80 sudo -E nohup node index.js > cube-timer-api.log &
 ```
