@@ -20,15 +20,19 @@ exports.getSolves = (req, res, next) => {
   let params = {
     TableName: config.dynamoTableName,
     KeyConditionExpression: 'puzzle = :puzzle',
+    ProjectionExpression: '#solvetime, recorded_at',
     ExpressionAttributeValues: {
-      ':puzzle': req.params.puzzle
+      ':puzzle': req.params.puzzle,
+    },
+    ExpressionAttributeNames: {
+      '#solvetime': 'duration'
     }
   }
   dynamodb.query(params, (err, data) => {
     if(err) {
       return next(err);
     }
-    res.send(data.Items);
+    res.send({ puzzle: req.params.puzzle, solves: data.Items });
   });
 };
 

@@ -13,23 +13,23 @@ GET /solves/2x2x2
 Example response:
 
 ```
-[
-  {
-    "recorded_at": 12343458456,
-    "duration": 6666,
-    "puzzle": "2x2x2"
-  },
-  {
-    "recorded_at": 12345678456,
-    "duration": 12343,
-    "puzzle": "2x2x2"
-  },
-  {
-    "recorded_at": 12349978456,
-    "duration": 12343,
-    "puzzle": "2x2x2"
-  }
-]
+{
+  "puzzle": "2x2x2",
+  "solves": [
+    {
+      "recorded_at": 12343458456,
+      "duration": 6666
+    },
+    {
+      "recorded_at": 12345678456,
+      "duration": 12343
+    },
+    {
+      "recorded_at": 12349978456,
+      "duration": 12343
+    }
+  ]
+}
 ```
 
 ## POST /solves
@@ -63,4 +63,12 @@ Example response:
   "UnprocessedItems": {}
   "message": "Added 2 solves"
 }
+```
+
+## Deploy to Amazon EC2
+
+SSH into the instance and run:
+
+```
+NODE_ENV=production PORT=80 sudo -E nohup node cube-timer-api/index.js & > cube-timer-api.log
 ```
