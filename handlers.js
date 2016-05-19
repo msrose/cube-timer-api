@@ -27,12 +27,20 @@ exports.getSolves = (req, res, next) => {
     ExpressionAttributeNames: {
       '#solvetime': 'duration'
     }
+  };
+  if(req.query.since) {
+    let timestamp = new Date(Number(req.query.since)).getTime();
+    if(isNaN(timestamp)) {
+      return next({ status: 400, message: 'Invalid since timestamp' });
+    }
+    params.KeyConditionExpression += ' AND recorded_at >= :since';
+    params.ExpressionAttributeValues[':since'] = timestamp;
   }
   dynamodb.query(params, (err, data) => {
     if(err) {
       return next(err);
     }
-    res.send({ puzzle: req.params.puzzle, solves: data.Items });
+    res.send({ puzzle: req.params.puzzle, count: data.Count, solves: data.Items });
   });
 };
 

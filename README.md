@@ -1,8 +1,9 @@
 # Cube Timer API
 
-## GET /solves/:puzzle
+## GET /solves/:puzzle?since=:timestamp
 
-Returns a list of solves for the specified puzzle.
+Returns a list of solves for the specified puzzle, recorded on or after the optional timestamp.
+If no timestamp is given, all the solves are returned.
 
 Example request:
 
@@ -15,6 +16,7 @@ Example response:
 ```
 {
   "puzzle": "2x2x2",
+  "count": 3,
   "solves": [
     {
       "recorded_at": 12343458456,
